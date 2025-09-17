@@ -1,0 +1,18 @@
+from snakemake.utils import Paramspace
+import yaml
+
+import pandas as pd
+
+configfile: "config/config.yaml"
+
+module vpipe_sudan:
+    snakefile: github("cbg-ethz/V-pipe", path="workflow/Snakefile", tag="v3.0.0.pre1")
+    config: config["vpipe_sudan"]
+    replace_prefix: {"results/": "results/sudan/"}
+
+use rule * from vpipe_sudan as vpipe_sudan_*
+
+rule all:
+    input:
+        rules.vpipe_sudan_all.input,
+    default_target: True
