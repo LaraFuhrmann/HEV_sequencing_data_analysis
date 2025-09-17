@@ -7,6 +7,7 @@ vpipe_sudan:
       datadir: /cluster/work/bewi/members/lfuhrmann/HEV_project/data/sudan/
       #read_length: xx
       paired: true
+      samples_file: config/samples.tsv
 
   consensus_bcftools:
       max_coverage: 150000
@@ -28,6 +29,7 @@ vpipe_uganda:
       datadir: /cluster/work/bewi/members/lfuhrmann/HEV_project/data/uganda/
       #read_length: xx
       paired: true
+      samples_file: config/samples.tsv
 
   consensus_bcftools:
       max_coverage: 150000
