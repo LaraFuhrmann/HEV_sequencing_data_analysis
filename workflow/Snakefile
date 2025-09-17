@@ -1,0 +1,28 @@
+from snakemake.utils import Paramspace
+import yaml
+
+#def load_config(path):
+#    with open(path, 'r') as stream:
+#        config = yaml.safe_load(stream)
+#    return config
+
+import pandas as pd
+
+configfile: "config/config.yaml"
+
+module vpipe_sudan:
+    snakefile: "../../V-pipe/workflow/Snakefile"
+    config: config["vpipe_sudan"]
+use rule * from vpipe_sudan as vpipe_sudan_*
+
+module vpipe_uganda:
+    snakefile: "../../V-pipe/workflow/Snakefile"
+    config: config["vpipe_uganda"]
+use rule * from vpipe_uganda as vpipe_uganda_*
+
+
+rule all:
+    input:
+        rules.vpipe_uganda_all.input,
+        rules.vpipe_sudan_all.input,
+    default_target: True

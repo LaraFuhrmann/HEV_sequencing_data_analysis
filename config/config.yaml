@@ -1,0 +1,41 @@
+vpipe_sudan:
+  general:
+      aligner: "bwa"
+
+  input:
+      reference: resources/references/PQ268485.fasta # sequence from Sudan outbreak
+      datadir: resources/samples/
+      read_length: xx
+      paired: true
+
+  consensus_bcftools:
+      max_coverage: 150000
+
+  output:
+      snv: false
+      local: false
+      global: false
+      visualization: false
+      diversity: false
+      QA: false
+
+vpipe_uganda:
+  general:
+      aligner: "bwa"
+
+  input:
+      reference: resources/references/OQ077986.fasta # sequence from Uganda
+      datadir: resources/samples
+      read_length: xx
+      paired: true
+
+  consensus_bcftools:
+      max_coverage: 150000
+
+  output:
+      snv: false
+      local: false
+      global: false
+      visualization: false
+      diversity: false
+      QA: false
