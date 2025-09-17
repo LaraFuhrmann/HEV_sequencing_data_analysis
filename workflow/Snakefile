@@ -24,6 +24,8 @@ module vpipe_uganda:
         {"results/": "results/uganda/"}
 use rule * from vpipe_uganda as vpipe_uganda_*
 
+ruleorder: vpipe_uganda_gunzip > vpipe_sudan_gunzip
+
 
 rule all:
     input:
