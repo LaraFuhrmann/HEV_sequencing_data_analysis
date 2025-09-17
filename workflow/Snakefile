@@ -23,7 +23,7 @@ module vpipe_uganda:
 use rule * from vpipe_sudan as vpipe_sudan_*
 use rule * from vpipe_uganda as vpipe_uganda_*
 
-ruleorder: vpipe_sudan_* > vpipe_uganda_*
+ruleorder: vpipe_uganda_gunzip > vpipe_uganda_extract > vpipe_sudan_gunzip > vpipe_sudan_extract
 
 rule all:
     input:
