@@ -13,7 +13,7 @@ configfile: "config/config.yaml"
 module vpipe_uganda:
     snakefile: github("cbg-ethz/V-pipe", path="workflow/Snakefile", tag="v3.0.0.pre1")
     config: config["vpipe_uganda"]
-    replace_prefix: {"results/": "results/uganda/"}
+    replace_prefix: {"results/": "results_uganda/"}
 
 use rule * from vpipe_uganda as vpipe_uganda_*
 
