@@ -5,7 +5,7 @@ vpipe_sudan:
   input:
       reference: resources/references/PQ268485.fasta # sequence from Sudan outbreak
       datadir: /cluster/work/bewi/members/lfuhrmann/HEV_project/data/sudan/
-      #read_length: xx
+      read_length: 100
       paired: true
       samples_file: config/samples.tsv
 
@@ -27,7 +27,7 @@ vpipe_uganda:
   input:
       reference: resources/references/OQ077986.fasta # sequence from Uganda
       datadir: /cluster/work/bewi/members/lfuhrmann/HEV_project/data/uganda/
-      #read_length: xx
+      read_length: 100
       paired: true
       samples_file: config/samples.tsv
 
