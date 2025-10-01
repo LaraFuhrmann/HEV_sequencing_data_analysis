@@ -41,7 +41,7 @@ rule coverage_csv:
 rule viloca:
     input:
         fname_bam="{dataset}/alignments/REF_aln.bam",
-        fname_reference=config['results_uganda']['input']['reference'],
+        fname_reference=config['vpipe_uganda']['input']['reference'],
     output:
         fname_csv="{dataset}/variants/cooccurring_mutations.csv",
         fname_vcf="{dataset}/variants/SNVs_0.010000_final.csv",
