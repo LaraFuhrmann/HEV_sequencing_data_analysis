@@ -20,15 +20,15 @@ use rule * from vpipe_uganda as vpipe_uganda_*
 rule all:
     input:
         rules.vpipe_uganda_all.input,
-        "results_uganda/csv_files/coverage.sudan.csv",
-        "results_uganda/csv_files/mutations.sudan.csv",
+        "results_uganda/csv_files/coverage.uganda.csv",
+        "results_uganda/csv_files/mutations.uganda.csv",
     default_target: True
 
 rule coverage_csv:
     input:
-        fnames_coverage=expand("{dataset}/alignments/coverage.tsv.gz", dataset= vpipe_sudan.datasets),
+        fnames_coverage=expand("{dataset}/alignments/coverage.tsv.gz", dataset= vpipe_uganda.datasets),
     output:
-        fname_coverage="results_uganda/csv_files/coverage.sudan.csv",
+        fname_coverage="results_uganda/csv_files/coverage.uganda.csv",
     run:
         import pandas as pd
         tmp = []
@@ -79,9 +79,9 @@ rule viloca:
 
 rule mutations_csv:
     input:
-        fnames_csv=expand("{dataset}/variants/SNVs_0.010000_final.csv", dataset= vpipe_sudan.datasets),
+        fnames_csv=expand("{dataset}/variants/SNVs_0.010000_final.csv", dataset= vpipe_uganda.datasets),
     output:
-        fname_csv="results_uganda/csv_files/mutations.sudan.csv",
+        fname_csv="results_uganda/csv_files/mutations.uganda.csv",
     run:
         import pandas as pd
         tmp = []
