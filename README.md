@@ -4,3 +4,6 @@ This repository contains analysis scripts and resources for processing Illumina 
 The analysis is conducted using two different reference sequences: one from Sudan and another from Uganda. The respective workflows are implemented as independent pipelines in `workflow/Snakefile_sudan` and `workflow/Snakemake_uganda`. Results from each workflow are organized separately in the directories `results_sudan` and `results_uganda`.
 
 The configuration file `config/config.yaml` specifies the reference sequences used and the directories where the input data are located.
+
+## Execution of the pipelines on Slurm cluster
+Use the files `run_pipeline_sudan.sh` and `run_pipeline_uganda.sh` for the execution of the pipelines on Slurm clusters. 
