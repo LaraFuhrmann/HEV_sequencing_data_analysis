@@ -15,4 +15,73 @@ use rule * from vpipe_sudan as vpipe_sudan_*
 rule all:
     input:
         rules.vpipe_sudan_all.input,
+        "results_sudan/csv_files/coverage.sudan.csv",
+        "results_sudan/csv_files/mutations.sudan.csv",
     default_target: True
+
+rule coverage_csv:
+    input:
+        fnames_coverage=expand("{dataset}/alignments/coverage.tsv.gz", dataset= vpipe_sudan.datasets),
+    output:
+        fname_coverage="results_sudan/csv_files/coverage.sudan.csv",
+    run:
+        import pandas as pd
+        tmp = []
+        for fname in input.fnames_coverage:
+            df = pd.read_csv(fname, sep = '\t')
+            df['file'] = fname
+            tmp.append(df)
+        pd.concat(tmp).to_csv(output.fname_coverage)
+
+rule viloca:
+    input:
+        fname_bam="{dataset}/alignments/REF_aln.bam",
+        fname_reference=config['vpipe_sudan']['input']['reference'],
+    output:
+        fname_csv="{dataset}/variants/cooccurring_mutations.csv",
+        fname_vcf="{dataset}/variants/SNVs_0.010000_final.csv",
+        dname_haplo=directory("{dataset}/variants/haplotypes"),
+        dname_work=directory("{dataset}/variants/"),
+    conda:
+        "env_viloca_july25"
+    params:
+        window_size=100,
+    resources:
+        mem_mb=16*8000,
+        runtime=14400,
+    threads: 16
+    shell:
+        """
+         # Ensure the working directory exists
+        mkdir -p {output.dname_work} && \
+
+        # Change to the working directory
+        cd {output.dname_work} && \
+
+        viloca run \
+            -b {input.fname_bam} \
+            -f {input.fname_reference} \
+            --mode use_quality_scores \
+            --alpha 0.0001 \
+            --n_max_haplotypes 100 \
+            -w {params.window_size} \
+            --min_windows_coverage 1 \
+            --win_min_ext 0.8 \
+            --threads {threads} \
+            --seed 2345 \
+            --reuse_files
+        """
+
+rule mutations_csv:
+    input:
+        fnames_csv=expand("{dataset}/variants/SNVs_0.010000_final.csv", dataset= vpipe_sudan.datasets),
+    output:
+        fname_csv="results_sudan/csv_files/mutations.sudan.csv",
+    run:
+        import pandas as pd
+        tmp = []
+        for fname in input.fnames_csv:
+            df = pd.read_csv(fname)
+            df['file'] = fname
+            tmp.append(df)
+        pd.concat(tmp).to_csv(output.fname_csv)
