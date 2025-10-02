@@ -50,7 +50,7 @@ rule viloca:
     conda:
         "envs/viloca.yaml"
     params:
-        window_size=100,
+        window_size=102, 
     resources:
         mem_mb=16*8000,
         runtime=14400,
