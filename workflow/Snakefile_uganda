@@ -48,7 +48,7 @@ rule viloca:
         dname_haplo=directory("{dataset}/variants/haplotypes"),
         dname_work=directory("{dataset}/variants/"),
     conda:
-        "env_viloca_july25"
+        "envs/viloca.yaml"
     params:
         window_size=100,
     resources:
