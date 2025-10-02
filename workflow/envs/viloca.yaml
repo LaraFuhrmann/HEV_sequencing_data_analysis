@@ -1,0 +1,11 @@
+channels:
+ - conda-forge
+ - bioconda
+dependencies:
+ - libshorah
+ - python=3.10
+ - biopython=1.79
+ - pandas
+ - pip
+ - pip:
+   - git+https://github.com/cbg-ethz/VILOCA@master
