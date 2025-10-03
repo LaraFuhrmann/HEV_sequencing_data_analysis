@@ -13,6 +13,7 @@ vpipe_sudan:
       max_coverage: 150000
 
   output:
+      datadir: results_sudan
       snv: false
       local: false
       global: false
@@ -35,6 +36,7 @@ vpipe_uganda:
       max_coverage: 150000
 
   output:
+      datadir: results_uganda
       snv: false
       local: false
       global: false
