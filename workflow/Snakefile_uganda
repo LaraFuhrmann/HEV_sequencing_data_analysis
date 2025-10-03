@@ -38,10 +38,15 @@ rule coverage_csv:
             tmp.append(df)
         pd.concat(tmp).to_csv(output.fname_coverage)
 
+import os
+
+def get_abs_bam(wildcards):
+    return os.path.abspath(f"{wildcards.dataset}/alignments/REF_aln.bam")
+
 rule viloca:
     input:
-        fname_bam="{dataset}/alignments/REF_aln.bam",
-        fname_reference=config['vpipe_uganda']['input']['reference'],
+        fname_bam=get_abs_bam,
+        fname_reference=lambda wildcards: os.path.abspath(config['vpipe_uganda']['input']['reference']),
     output:
         fname_csv="{dataset}/variants/cooccurring_mutations.csv",
         fname_vcf="{dataset}/variants/SNVs_0.010000_final.csv",
@@ -50,7 +55,7 @@ rule viloca:
     conda:
         "envs/viloca.yaml"
     params:
-        window_size=102, 
+        window_size=102,
     resources:
         mem_mb=16*8000,
         runtime=14400,
