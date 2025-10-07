@@ -31,6 +31,7 @@ def main(fnames, bams, fname_out):
         mapped, unmapped = count_mapped_unmapped_reads(bam)
         df['mapped'] = mapped
         df['unmapped'] = unmapped
+        tmp.append(df)
 
     pd.concat(tmp).to_csv(fname_out)
 
