@@ -7,7 +7,25 @@ rule all:
     input:
         "results/coverage.csv",
         "results/preprocessing.csv",
+        "results/align.csv",
     default_target: True
+
+rule align:
+    input:
+        fnames_coverage= [
+            "results_uganda/csv_files/align.uganda.csv",
+            "results_sudan/csv_files/align.sudan.csv",
+        ],
+    output:
+        fname="results/align.csv",
+    run:
+        import pandas as pd
+    tmp = []
+    for fname in input.fnames_coverage:
+        df = pd.read_csv(fname, sep = '\t')
+        df['file'] = fname
+        tmp.append(df)
+    pd.concat(tmp).to_csv(output.fname)
 
 rule coverage:
     input:
