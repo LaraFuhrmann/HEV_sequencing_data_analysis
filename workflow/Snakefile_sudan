@@ -17,6 +17,7 @@ rule all:
         rules.vpipe_sudan_all.input,
         "results_sudan/csv_files/coverage.sudan.csv",
         "results_sudan/csv_files/mutations.sudan.csv",
+        "results_sudan/csv_files/preprocessing.sudan.csv",
     default_target: True
 
 rule coverage_csv:
@@ -32,6 +33,14 @@ rule coverage_csv:
             df['file'] = fname
             tmp.append(df)
         pd.concat(tmp).to_csv(output.fname_coverage)
+
+rule preprocessing_csv:
+    input:
+        fnames=expand("{dataset}/preprocessed_data/prinseq.err.log", dataset= vpipe_sudan.datasets),
+    output:
+        fname="results_sudan/csv_files/preprocessing.sudan.csv",
+    script:
+        "scripts/preprocessing_csv.py"
 
 rule viloca:
     input:

@@ -1,17 +1,39 @@
+"""
+With this workflow we collect the V-pipe results with the differnt refernce sequeinces
+"""
+
 
 rule all:
     input:
-        "results/coverage.csv"
+        "results/coverage.csv",
+        "results/preprocessing.csv",
     default_target: True
 
 rule coverage:
     input:
         fnames_coverage= [
             "results_uganda/csv_files/coverage.uganda.csv",
-            "results_uganda/csv_files/coverage.uganda.csv",
+            "results_sudan/csv_files/coverage.sudan.csv",
         ],
     output:
         fname="results/coverage.csv",
+    run:
+        import pandas as pd
+    tmp = []
+    for fname in input.fnames_coverage:
+        df = pd.read_csv(fname, sep = '\t')
+        df['file'] = fname
+        tmp.append(df)
+    pd.concat(tmp).to_csv(output.fname)
+
+rule preprocessing:
+    input:
+        fnames_coverage= [
+            "results_uganda/csv_files/preprocessing.uganda.csv",
+            "results_sudan/csv_files/preprocessing.sudan.csv",
+        ],
+    output:
+        fname="results/preprocessing.csv",
     run:
         import pandas as pd
     tmp = []
