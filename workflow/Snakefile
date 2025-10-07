@@ -20,12 +20,12 @@ rule align:
         fname="results/align.csv",
     run:
         import pandas as pd
-    tmp = []
-    for fname in input.fnames_coverage:
-        df = pd.read_csv(fname, sep = '\t')
-        df['file'] = fname
-        tmp.append(df)
-    pd.concat(tmp).to_csv(output.fname)
+        tmp = []
+        for fname in input.fnames_coverage:
+            df = pd.read_csv(fname, sep = '\t')
+            df['file'] = fname
+            tmp.append(df)
+        pd.concat(tmp).to_csv(output.fname)
 
 rule coverage:
     input:
@@ -37,12 +37,12 @@ rule coverage:
         fname="results/coverage.csv",
     run:
         import pandas as pd
-    tmp = []
-    for fname in input.fnames_coverage:
-        df = pd.read_csv(fname, sep = '\t')
-        df['file'] = fname
-        tmp.append(df)
-    pd.concat(tmp).to_csv(output.fname)
+        tmp = []
+        for fname in input.fnames_coverage:
+            df = pd.read_csv(fname, sep = '\t')
+            df['file'] = fname
+            tmp.append(df)
+        pd.concat(tmp).to_csv(output.fname)
 
 rule preprocessing:
     input:
@@ -54,9 +54,9 @@ rule preprocessing:
         fname="results/preprocessing.csv",
     run:
         import pandas as pd
-    tmp = []
-    for fname in input.fnames_coverage:
-        df = pd.read_csv(fname, sep = '\t')
-        df['file'] = fname
-        tmp.append(df)
-    pd.concat(tmp).to_csv(output.fname)
+        tmp = []
+        for fname in input.fnames_coverage:
+            df = pd.read_csv(fname, sep = '\t')
+            df['file'] = fname
+            tmp.append(df)
+        pd.concat(tmp).to_csv(output.fname)
