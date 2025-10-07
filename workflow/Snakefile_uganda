@@ -36,6 +36,8 @@ rule coverage_csv:
         tmp = []
         for fname in input.fnames_coverage:
             df = pd.read_csv(fname, sep = '\t')
+            sample_id = fname.split("/")[-4]+"/"+fname.split("/")[-3]
+            df['coverage'] = df[sample_id]
             df['file'] = fname
             tmp.append(df)
         pd.concat(tmp).to_csv(output.fname_coverage)
