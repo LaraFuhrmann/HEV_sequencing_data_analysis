@@ -18,6 +18,7 @@ rule all:
         "results_sudan/csv_files/coverage.sudan.csv",
         "results_sudan/csv_files/mutations.sudan.csv",
         "results_sudan/csv_files/preprocessing.sudan.csv",
+        "results_sudan/csv_files/align.sudan.csv",
     default_target: True
 
 rule coverage_csv:
@@ -42,6 +43,17 @@ rule preprocessing_csv:
     script:
         "scripts/preprocessing_csv.py"
 
+rule align_csv:
+    input:
+        fnames=expand("{dataset}/alignments/REF_aln_stats.yaml", dataset= vpipe_sudan.datasets),
+        bams==expand("{dataset}/alignments/REF_aln.bam", dataset= vpipe_sudan.datasets),
+    output:
+        fname="results_sudan/csv_files/align.sudan.csv",
+    conda:
+        "envs/viloca.yaml"
+    script:
+        "scripts/align_csv.py"
+
 rule viloca:
     input:
         fname_bam="{dataset}/alignments/REF_aln.bam",
@@ -52,7 +64,7 @@ rule viloca:
         dname_haplo=directory("{dataset}/variants/haplotypes"),
         dname_work=directory("{dataset}/variants/"),
     conda:
-        "env_viloca_july25"
+        "envs/viloca.yaml"
     params:
         window_size=100,
     resources:
