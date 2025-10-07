@@ -12,6 +12,9 @@ vpipe_sudan:
   consensus_bcftools:
       max_coverage: 150000
 
+  bwa_align:
+      time: 600
+
   output:
       datadir: results_sudan
       snv: false
@@ -24,6 +27,9 @@ vpipe_sudan:
 vpipe_uganda:
   general:
       aligner: "bwa"
+
+    bwa_align:
+        time: 600
 
   input:
       reference: resources/references/OQ077986.fasta # sequence from Uganda
