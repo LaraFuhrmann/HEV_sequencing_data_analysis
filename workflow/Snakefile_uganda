@@ -56,6 +56,9 @@ rule align_csv:
         fname="results_uganda/csv_files/align.uganda.csv",
     conda:
         "envs/viloca.yaml"
+    resources:
+        mem_mb=8000,
+        runtime=600,
     script:
         "scripts/align_csv.py"
 
