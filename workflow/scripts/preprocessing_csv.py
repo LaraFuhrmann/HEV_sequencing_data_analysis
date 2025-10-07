@@ -5,12 +5,13 @@ def parse_stats_file_with_path(filepath):
     with open(filepath, 'r') as file:
         lines = file.readlines()
     data = {}
-    pattern = re.compile(r'^(.*?):\s+([\d,\.]+)(?:\s*\([^)]*\))?$')
+    # Pattern to match key and value but ignore parenthesis content (percentages)
+    pattern = re.compile(r'^(.*?):\s+([\d,\.]+)')
     for line in lines:
         line = line.strip()
         match = pattern.match(line)
         if match:
-            key = match.group(1)
+            key = match.group(1)  # entire key text without trailing spaces
             val = match.group(2).replace(',', '')
             if '.' in val:
                 val = float(val)
@@ -20,7 +21,6 @@ def parse_stats_file_with_path(filepath):
     data['filepath'] = filepath
     df = pd.DataFrame([data])
     return df
-
 
 def main(fnames, fname_out):
     tmp = []
