@@ -44,7 +44,7 @@ rule preprocessing_csv:
     input:
         fnames=expand("{dataset}/preprocessed_data/prinseq.err.log", dataset= vpipe_uganda.datasets),
     output:
-        fname="results_sudan/csv_files/preprocessing.uganda.csv",
+        fname="results_uganda/csv_files/preprocessing.uganda.csv",
     script:
         "scripts/preprocessing_csv.py"
 
@@ -53,7 +53,7 @@ rule align_csv:
         fnames=expand("{dataset}/alignments/REF_aln_stats.yaml", dataset= vpipe_uganda.datasets),
         bams=expand("{dataset}/alignments/REF_aln.bam", dataset= vpipe_uganda.datasets),
     output:
-        fname="results_sudan/csv_files/align.uganda.csv",
+        fname="results_uganda/csv_files/align.uganda.csv",
     conda:
         "envs/viloca.yaml"
     script:
