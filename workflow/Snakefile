@@ -1,0 +1,22 @@
+
+rule all:
+    input:
+        "results/coverage.csv"
+    default_target: True
+
+rule coverage:
+    input:
+        fnames_coverage= [
+            "results_uganda/csv_files/coverage.uganda.csv",
+            "results_uganda/csv_files/coverage.uganda.csv",
+        ],
+    output:
+        fname="results/coverage.csv",
+    run:
+        import pandas as pd
+    tmp = []
+    for fname in input.fnames_coverage:
+        df = pd.read_csv(fname, sep = '\t')
+        df['file'] = fname
+        tmp.append(df)
+    pd.concat(tmp).to_csv(output.fname)
