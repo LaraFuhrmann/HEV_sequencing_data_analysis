@@ -22,6 +22,8 @@ rule all:
         rules.vpipe_uganda_all.input,
         "results_uganda/csv_files/coverage.uganda.csv",
         "results_uganda/csv_files/mutations.uganda.csv",
+        "results_uganda/csv_files/preprocessing.uganda.csv",
+        "results_uganda/csv_files/align.uganda.csv",
     default_target: True
 
 rule coverage_csv:
@@ -37,6 +39,25 @@ rule coverage_csv:
             df['file'] = fname
             tmp.append(df)
         pd.concat(tmp).to_csv(output.fname_coverage)
+
+rule preprocessing_csv:
+    input:
+        fnames=expand("{dataset}/preprocessed_data/prinseq.err.log", dataset= vpipe_sudan.datasets),
+    output:
+        fname="results_sudan/csv_files/preprocessing.sudan.csv",
+    script:
+        "scripts/preprocessing_csv.py"
+
+rule align_csv:
+    input:
+        fnames=expand("{dataset}/alignments/REF_aln_stats.yaml", dataset= vpipe_sudan.datasets),
+        bams=expand("{dataset}/alignments/REF_aln.bam", dataset= vpipe_sudan.datasets),
+    output:
+        fname="results_sudan/csv_files/align.sudan.csv",
+    conda:
+        "envs/viloca.yaml"
+    script:
+        "scripts/align_csv.py"
 
 import os
 
