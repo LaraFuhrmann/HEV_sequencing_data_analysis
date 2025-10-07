@@ -26,7 +26,7 @@ def count_mapped_unmapped_reads(bam_file_path):
 
 def main(fnames, bams, fname_out):
     tmp = []
-    for fname, bam in zipped(fnames, bams):
+    for fname, bam in zip(fnames, bams):
         df = yaml_to_dataframe(fname)
         mapped, unmapped = count_mapped_unmapped_reads(bam)
         df['mapped'] = mapped
